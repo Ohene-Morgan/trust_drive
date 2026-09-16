@@ -121,7 +121,7 @@ function HomePage() {
 
   useEffect(() => {
     const hero = document.getElementById("home");
-    const darkSection = document.getElementById("why-tds");
+    const darkSection = document.getElementById("why-tds-panel");
     const onScroll = () => {
       const threshold = hero ? hero.offsetHeight - 80 : 500;
       setScrolled(window.scrollY > threshold);
@@ -277,17 +277,12 @@ function HomePage() {
           <div className="grid gap-10 lg:grid-cols-[0.7fr_1.3fr]"><div><SectionLabel>What we teach</SectionLabel><h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Lessons for every stage.</h2></div><div className="grid sm:grid-cols-2">{lessons.map(({ icon: Icon, title, text }, index) => <article key={title} className={`border-border py-7 sm:px-7 ${index < 2 ? "border-b" : ""} ${index % 2 === 1 ? "sm:border-l" : "sm:pl-0"}`}><Icon className="size-7 text-primary" /><h3 className="mt-5 text-xl font-semibold">{title}</h3><p className="mt-3 text-sm leading-6 text-muted-foreground">{text}</p><Button variant="ghost" size="sm" onClick={() => scrollTo("contact")} className="mt-4 min-h-0 px-0 text-primary hover:bg-transparent">Enquire <ArrowRight className="size-4" /></Button></article>)}</div></div>
         </section>
 
-        <section
-          id="why-tds"
-          className="text-primary-foreground"
-          style={{
-            background:
-              "linear-gradient(to bottom, var(--color-background) 0px, var(--color-dark-surface) 80px, var(--color-dark-surface) calc(100% - 80px), var(--color-background) 100%)",
-          }}
-        >
-          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[0.85fr_1.15fr] lg:px-8 lg:py-28">
-            <div><SectionLabel tone="dark">Why choose TDS</SectionLabel><h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Safety is not a module. It is the method.</h2><ul className="mt-8 grid gap-4 text-sm text-primary-foreground/75 sm:grid-cols-2">{["Experienced instructors", "Practical road training", "Personalised lesson plans", "Flexible scheduling"].map((item) => <li key={item} className="flex items-center gap-3"><Check className="size-4 text-brand-gold" />{item}</li>)}</ul></div>
-            <img src={steeringImage} alt="Learner holding a steering wheel during a road lesson" width={1280} height={800} loading="lazy" className="aspect-[7/5] w-full rounded-xl object-cover" />
+        <section id="why-tds" className="mx-auto max-w-7xl px-5 py-10 lg:px-8 lg:py-16">
+          <div id="why-tds-panel" className="rounded-[2.5rem] bg-dark-surface px-6 py-14 text-primary-foreground sm:px-10 lg:py-20">
+            <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.85fr_1.15fr]">
+              <div><SectionLabel tone="dark">Why choose TDS</SectionLabel><h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Safety is not a module. It is the method.</h2><ul className="mt-8 grid gap-4 text-sm text-primary-foreground/75 sm:grid-cols-2">{["Experienced instructors", "Practical road training", "Personalised lesson plans", "Flexible scheduling"].map((item) => <li key={item} className="flex items-center gap-3"><Check className="size-4 text-brand-gold" />{item}</li>)}</ul></div>
+              <img src={steeringImage} alt="Learner holding a steering wheel during a road lesson" width={1280} height={800} loading="lazy" className="aspect-[7/5] w-full rounded-xl object-cover" />
+            </div>
           </div>
         </section>
 
