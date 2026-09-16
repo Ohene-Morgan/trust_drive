@@ -6,7 +6,9 @@ import {
   Check,
   ClipboardCheck,
   GraduationCap,
+  MapPin,
   Menu,
+  Phone,
   Plus,
   RefreshCw,
   ShieldCheck,
@@ -42,7 +44,16 @@ const navItems = [
   ["How it works", "how-it-works"],
   ["Reviews", "reviews"],
   ["FAQ", "faq"],
+  ["Find us", "find-us"],
 ] as const;
+
+const businessLocation = {
+  address: "Oscar Road, Kwabenya, Accra, Ghana",
+  phone: "+233 20 766 6778",
+  phoneHref: "tel:+233207666778",
+  mapsUrl: "https://maps.app.goo.gl/xpD82oLjii4THMwT8",
+  mapsEmbedSrc: "https://www.google.com/maps?q=Trust+Driving+Solution,+Oscar+Road,+Kwabenya,+Accra,+Ghana&ll=5.685465,-0.2451969&z=16&output=embed",
+};
 
 const packages = [
   {
@@ -302,9 +313,59 @@ function HomePage() {
             </div>
           </div>
         </section>
+
+        <section id="find-us" className="border-t border-border bg-card">
+          <div className="mx-auto grid max-w-7xl items-center gap-12 px-5 py-20 lg:grid-cols-[0.9fr_1.1fr] lg:px-8 lg:py-28">
+            <div>
+              <SectionLabel>Find us</SectionLabel>
+              <h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Visit us in Kwabenya.</h2>
+              <p className="mt-6 leading-7 text-muted-foreground">Come by, call ahead, or just drop us a line — we're easy to find on Oscar Road.</p>
+              <div className="mt-8 flex flex-col gap-4 text-sm">
+                <a href={businessLocation.mapsUrl} target="_blank" rel="noreferrer" className="flex items-start gap-3 hover:text-primary">
+                  <MapPin className="mt-0.5 size-5 shrink-0 text-primary" />
+                  {businessLocation.address}
+                </a>
+                <a href={businessLocation.phoneHref} className="flex items-center gap-3 hover:text-primary">
+                  <Phone className="size-5 shrink-0 text-primary" />
+                  {businessLocation.phone}
+                </a>
+              </div>
+              <Button variant="secondary" className="mt-8" onClick={() => window.open(businessLocation.mapsUrl, "_blank")}>
+                Get directions <ArrowRight className="size-4" />
+              </Button>
+            </div>
+            <div className="overflow-hidden rounded-xl border border-border shadow-brand">
+              <iframe
+                title="Trust Driving Solution location"
+                src={businessLocation.mapsEmbedSrc}
+                className="h-[360px] w-full"
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+              />
+            </div>
+          </div>
+        </section>
       </main>
 
-      <footer className="bg-dark-surface text-primary-foreground"><div className="mx-auto flex max-w-7xl flex-col gap-8 px-5 py-12 sm:flex-row sm:items-center sm:justify-between lg:px-8"><img src={logoImageDark} alt="Trust Driving Solution" className="h-14 w-auto" /><div className="text-sm text-primary-foreground/60"><p>Your safety, our business.</p><p className="mt-2">© 2026 Trust Driving Solution. All rights reserved.</p></div></div></footer>
+      <footer className="bg-dark-surface text-primary-foreground">
+        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:grid-cols-[auto_1fr_auto] sm:items-center lg:px-8">
+          <img src={logoImageDark} alt="Trust Driving Solution" className="h-14 w-auto" />
+          <div className="flex flex-col gap-2 text-sm text-primary-foreground/75 sm:items-center">
+            <a href={businessLocation.mapsUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary-foreground">
+              <MapPin className="size-4 shrink-0" />
+              {businessLocation.address}
+            </a>
+            <a href={businessLocation.phoneHref} className="flex items-center gap-2 hover:text-primary-foreground">
+              <Phone className="size-4 shrink-0" />
+              {businessLocation.phone}
+            </a>
+          </div>
+          <div className="text-sm text-primary-foreground/60 sm:text-right">
+            <p>Your safety, our business.</p>
+            <p className="mt-2">© 2026 Trust Driving Solution. All rights reserved.</p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
