@@ -348,9 +348,9 @@ function HomePage() {
       </main>
 
       <footer className="bg-dark-surface text-primary-foreground">
-        <div className="mx-auto grid max-w-7xl gap-10 px-5 py-12 sm:grid-cols-[auto_1fr_auto] sm:items-center lg:px-8">
-          <img src={logoImageDark} alt="Trust Driving Solution" className="h-14 w-auto" />
-          <div className="flex flex-col gap-2 text-sm text-primary-foreground/75 sm:items-center">
+        <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-5 py-8 text-center sm:flex-row sm:items-center sm:gap-6 sm:text-left lg:px-8">
+          <img src={logoImageDark} alt="Trust Driving Solution" className="h-16 w-auto shrink-0" />
+          <div className="flex flex-col items-center gap-1.5 text-sm text-primary-foreground/75 sm:items-start">
             <a href={businessLocation.mapsUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary-foreground">
               <MapPin className="size-4 shrink-0" />
               {businessLocation.address}
@@ -359,10 +359,7 @@ function HomePage() {
               <Phone className="size-4 shrink-0" />
               {businessLocation.phone}
             </a>
-          </div>
-          <div className="text-sm text-primary-foreground/60 sm:text-right">
-            <p>Your safety, our business.</p>
-            <p className="mt-2">© 2026 Trust Driving Solution. All rights reserved.</p>
+            <p className="mt-1 text-primary-foreground/60">Your safety, our business. · © 2026 Trust Driving Solution. All rights reserved.</p>
           </div>
         </div>
       </footer>
