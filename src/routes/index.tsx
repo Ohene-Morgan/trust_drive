@@ -348,19 +348,24 @@ function HomePage() {
       </main>
 
       <footer className="bg-dark-surface text-primary-foreground">
-        <div className="mx-auto flex max-w-7xl flex-col items-center gap-4 px-5 py-8 text-center sm:flex-row sm:items-center sm:gap-6 sm:text-left lg:px-8">
-          <img src={logoImageDark} alt="Trust Driving Solution" className="h-16 w-auto shrink-0" />
-          <div className="flex flex-col items-center gap-1.5 text-sm text-primary-foreground/75 sm:items-start">
-            <a href={businessLocation.mapsUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary-foreground">
-              <MapPin className="size-4 shrink-0" />
-              {businessLocation.address}
-            </a>
-            <a href={businessLocation.phoneHref} className="flex items-center gap-2 hover:text-primary-foreground">
-              <Phone className="size-4 shrink-0" />
-              {businessLocation.phone}
-            </a>
-            <p className="mt-1 text-primary-foreground/60">Your safety, our business. · © 2026 Trust Driving Solution. All rights reserved.</p>
+        <div className="mx-auto max-w-7xl px-5 py-8 lg:px-8">
+          <div className="flex flex-col items-center gap-3 text-center sm:flex-row sm:items-stretch sm:gap-6 sm:text-left">
+            <img src={logoImageDark} alt="Trust Driving Solution" className="h-20 w-auto shrink-0" />
+            <div className="flex flex-col items-center gap-2 text-sm text-primary-foreground/75 sm:items-start sm:justify-between sm:gap-0 sm:py-1">
+              <a href={businessLocation.mapsUrl} target="_blank" rel="noreferrer" className="flex items-center gap-2 hover:text-primary-foreground">
+                <MapPin className="size-4 shrink-0" />
+                {businessLocation.address}
+              </a>
+              <a href={businessLocation.phoneHref} className="flex items-center gap-2 hover:text-primary-foreground">
+                <Phone className="size-4 shrink-0" />
+                {businessLocation.phone}
+              </a>
+              <p className="text-primary-foreground/60">Your safety, our business.</p>
+            </div>
           </div>
+          <p className="mt-6 border-t border-primary-foreground/10 pt-6 text-center text-sm text-primary-foreground/60 sm:text-left">
+            © 2026 Trust Driving Solution. All rights reserved.
+          </p>
         </div>
       </footer>
     </div>
