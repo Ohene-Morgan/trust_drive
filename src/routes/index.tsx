@@ -278,7 +278,11 @@ function HomePage() {
         </section>
 
         <section id="why-tds" className="mx-auto max-w-7xl px-5 py-10 lg:px-8 lg:py-16">
-          <div id="why-tds-panel" className="rounded-[2.5rem] bg-dark-surface px-6 py-14 text-primary-foreground sm:px-10 lg:py-20">
+          <div
+            id="why-tds-panel"
+            className="rounded-[2.5rem] px-6 py-14 text-primary-foreground shadow-[0_60px_120px_-30px_rgba(0,0,0,0.55)] sm:px-10 lg:py-20"
+            style={{ background: "linear-gradient(135deg, var(--color-dark-surface) 0%, color-mix(in oklab, var(--color-dark-surface) 55%, black) 100%)" }}
+          >
             <div className="mx-auto grid max-w-6xl items-center gap-12 lg:grid-cols-[0.85fr_1.15fr]">
               <div><SectionLabel tone="dark">Why choose TDS</SectionLabel><h2 className="mt-5 text-4xl font-bold leading-tight tracking-tight sm:text-5xl">Safety is not a module. It is the method.</h2><ul className="mt-8 grid gap-4 text-sm text-primary-foreground/75 sm:grid-cols-2">{["Experienced instructors", "Practical road training", "Personalised lesson plans", "Flexible scheduling"].map((item) => <li key={item} className="flex items-center gap-3"><Check className="size-4 text-brand-gold" />{item}</li>)}</ul></div>
               <img src={steeringImage} alt="Learner holding a steering wheel during a road lesson" width={1280} height={800} loading="lazy" className="aspect-[7/5] w-full rounded-xl object-cover" />
