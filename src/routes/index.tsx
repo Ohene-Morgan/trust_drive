@@ -110,6 +110,7 @@ const faqs = [
 function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [overDark, setOverDark] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const scrollTo = (id: string) => {
@@ -119,9 +120,14 @@ function HomePage() {
 
   useEffect(() => {
     const hero = document.getElementById("home");
+    const darkSection = document.getElementById("why-tds");
     const onScroll = () => {
       const threshold = hero ? hero.offsetHeight - 80 : 500;
       setScrolled(window.scrollY > threshold);
+      if (darkSection) {
+        const rect = darkSection.getBoundingClientRect();
+        setOverDark(rect.top <= 90 && rect.bottom >= 0);
+      }
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -149,16 +155,14 @@ function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className={`sticky top-0 z-50 border-b transition-[height,box-shadow,border-color,background-color] duration-300 ${scrolled ? "border-border bg-background/95 shadow-[0_1px_20px_-8px_rgba(0,0,0,0.15)] backdrop-blur-md" : "border-transparent bg-transparent"}`}>
-        {!scrolled && (
-          <div
-            aria-hidden
-            className="pointer-events-none absolute inset-0 backdrop-blur-sm [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,transparent_40%,black_100%)] [mask-image:linear-gradient(to_bottom,transparent_0%,transparent_40%,black_100%)]"
-          />
-        )}
+      <header className="sticky top-0 z-50 border-b border-transparent transition-[height] duration-300">
+        <div
+          aria-hidden
+          className="pointer-events-none absolute inset-0 backdrop-blur-sm [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,transparent_40%,black_100%)] [mask-image:linear-gradient(to_bottom,transparent_0%,transparent_40%,black_100%)]"
+        />
         <div className={`relative mx-auto flex max-w-7xl items-center justify-between px-5 transition-[height] duration-300 lg:px-8 ${scrolled ? "h-16" : "h-20"}`}>
           <button onClick={() => scrollTo("home")} className="shrink-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" aria-label="Go to homepage">
-            <img src={logoImage} alt="Trust Driving Solution" className={`w-auto max-w-48 object-contain transition-[height] duration-300 ${scrolled ? "h-11" : "h-14"}`} />
+            <img src={overDark ? logoImageDark : logoImage} alt="Trust Driving Solution" className={`w-auto max-w-48 object-contain transition-[height] duration-300 ${scrolled ? "h-11" : "h-14"}`} />
           </button>
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Main navigation">
             {navItems.map(([label, id]) => {
@@ -167,20 +171,38 @@ function HomePage() {
                 <button
                   key={id}
                   onClick={() => scrollTo(id)}
-                  className={`group relative px-3 py-2 text-[15px] font-medium transition-colors ${active ? "text-primary" : "text-muted-foreground hover:text-foreground"}`}
+                  className={`group relative px-3 py-2 text-[15px] font-medium transition-colors ${
+                    overDark
+                      ? active
+                        ? "text-brand-gold"
+                        : "text-primary-foreground/70 hover:text-primary-foreground"
+                      : active
+                        ? "text-primary"
+                        : "text-muted-foreground hover:text-foreground"
+                  }`}
                 >
                   {label}
-                  <span className={`absolute inset-x-3 -bottom-0.5 h-px origin-left bg-primary transition-transform duration-300 ${active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`} />
+                  <span
+                    className={`absolute inset-x-3 -bottom-0.5 h-px origin-left transition-transform duration-300 ${overDark ? "bg-brand-gold" : "bg-primary"} ${active ? "scale-x-100" : "scale-x-0 group-hover:scale-x-100"}`}
+                  />
                 </button>
               );
             })}
           </nav>
           <div className="hidden lg:block">
-            <Button variant="dark" onClick={() => scrollTo("contact")} className="group">
+            <Button variant={overDark ? "light" : "dark"} onClick={() => scrollTo("contact")} className="group">
               Book a lesson <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Button>
           </div>
-          <Button variant="ghost" size="icon" onClick={() => setMenuOpen((open) => !open)} className="lg:hidden" aria-label="Toggle menu">{menuOpen ? <X /> : <Menu />}</Button>
+          <Button
+            variant="ghost"
+            size="icon"
+            onClick={() => setMenuOpen((open) => !open)}
+            className={`lg:hidden ${overDark ? "text-primary-foreground hover:bg-primary-foreground/10" : ""}`}
+            aria-label="Toggle menu"
+          >
+            {menuOpen ? <X /> : <Menu />}
+          </Button>
         </div>
         {menuOpen && (
           <nav className="animate-in fade-in slide-in-from-top-2 border-t border-border bg-background px-5 py-4 duration-200 lg:hidden" aria-label="Mobile navigation">
