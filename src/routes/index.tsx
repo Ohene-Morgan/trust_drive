@@ -111,6 +111,7 @@ function HomePage() {
   const [menuOpen, setMenuOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
   const [overDark, setOverDark] = useState(false);
+  const [scrollProgress, setScrollProgress] = useState(0);
   const [activeSection, setActiveSection] = useState("home");
   const [openFaq, setOpenFaq] = useState<number | null>(0);
   const scrollTo = (id: string) => {
@@ -128,6 +129,9 @@ function HomePage() {
         const rect = darkSection.getBoundingClientRect();
         setOverDark(rect.top <= 90 && rect.bottom >= 0);
       }
+      const doc = document.documentElement;
+      const scrollable = doc.scrollHeight - doc.clientHeight;
+      setScrollProgress(scrollable > 0 ? Math.min(1, Math.max(0, doc.scrollTop / scrollable)) : 0);
     };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -155,7 +159,22 @@ function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className="sticky top-0 z-50 border-b border-transparent transition-[height] duration-300">
+      <div className="fixed inset-x-0 top-0 z-[60] h-1.5 bg-dark-surface" aria-hidden>
+        <div
+          className="absolute inset-x-0 top-1/2 h-px -translate-y-1/2 opacity-60 [background-image:repeating-linear-gradient(to_right,var(--color-brand-gold)_0px,var(--color-brand-gold)_10px,transparent_10px,transparent_20px)]"
+        />
+        <div
+          className="absolute inset-y-0 left-0 bg-primary transition-[width] duration-150 ease-out"
+          style={{ width: `${scrollProgress * 100}%` }}
+        />
+        <div
+          className="absolute top-1/2 -translate-y-1/2 transition-[left] duration-150 ease-out"
+          style={{ left: `calc(9px + (100% - 18px) * ${scrollProgress})` }}
+        >
+          <CarFront className="size-[18px] text-primary-foreground drop-shadow-[0_1px_2px_rgba(0,0,0,0.5)]" />
+        </div>
+      </div>
+      <header className="sticky top-1.5 z-50 border-b border-transparent transition-[height] duration-300">
         <div
           aria-hidden
           className="pointer-events-none absolute inset-0 backdrop-blur-sm [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,transparent_40%,black_100%)] [mask-image:linear-gradient(to_bottom,transparent_0%,transparent_40%,black_100%)]"
