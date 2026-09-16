@@ -149,8 +149,14 @@ function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className={`sticky top-0 z-50 border-b backdrop-blur-sm transition-[height,box-shadow,border-color,background-color,backdrop-filter] duration-300 ${scrolled ? "border-border bg-background/95 shadow-[0_1px_20px_-8px_rgba(0,0,0,0.15)] backdrop-blur-md" : "border-transparent bg-transparent"}`}>
-        <div className={`mx-auto flex max-w-7xl items-center justify-between px-5 transition-[height] duration-300 lg:px-8 ${scrolled ? "h-16" : "h-20"}`}>
+      <header className={`sticky top-0 z-50 border-b transition-[height,box-shadow,border-color,background-color] duration-300 ${scrolled ? "border-border bg-background/95 shadow-[0_1px_20px_-8px_rgba(0,0,0,0.15)] backdrop-blur-md" : "border-transparent bg-transparent"}`}>
+        {!scrolled && (
+          <div
+            aria-hidden
+            className="pointer-events-none absolute inset-0 backdrop-blur-sm [-webkit-mask-image:linear-gradient(to_bottom,transparent_0%,transparent_40%,black_100%)] [mask-image:linear-gradient(to_bottom,transparent_0%,transparent_40%,black_100%)]"
+          />
+        )}
+        <div className={`relative mx-auto flex max-w-7xl items-center justify-between px-5 transition-[height] duration-300 lg:px-8 ${scrolled ? "h-16" : "h-20"}`}>
           <button onClick={() => scrollTo("home")} className="shrink-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" aria-label="Go to homepage">
             <img src={logoImage} alt="Trust Driving Solution" className={`w-auto max-w-48 object-contain transition-[height] duration-300 ${scrolled ? "h-11" : "h-14"}`} />
           </button>
