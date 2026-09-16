@@ -118,10 +118,18 @@ function HomePage() {
   };
 
   useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 8);
+    const hero = document.getElementById("home");
+    const onScroll = () => {
+      const threshold = hero ? hero.offsetHeight - 80 : 500;
+      setScrolled(window.scrollY > threshold);
+    };
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onScroll);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onScroll);
+    };
   }, []);
 
   useEffect(() => {
@@ -141,7 +149,7 @@ function HomePage() {
 
   return (
     <div className="min-h-screen bg-background text-foreground">
-      <header className={`sticky top-0 z-50 border-b bg-background/95 backdrop-blur-md transition-[height,box-shadow,border-color] duration-300 ${scrolled ? "border-border shadow-[0_1px_20px_-8px_rgba(0,0,0,0.15)]" : "border-transparent"}`}>
+      <header className={`sticky top-0 z-50 border-b backdrop-blur-sm transition-[height,box-shadow,border-color,background-color,backdrop-filter] duration-300 ${scrolled ? "border-border bg-background/95 shadow-[0_1px_20px_-8px_rgba(0,0,0,0.15)] backdrop-blur-md" : "border-transparent bg-transparent"}`}>
         <div className={`mx-auto flex max-w-7xl items-center justify-between px-5 transition-[height] duration-300 lg:px-8 ${scrolled ? "h-16" : "h-20"}`}>
           <button onClick={() => scrollTo("home")} className="shrink-0 rounded-sm focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2" aria-label="Go to homepage">
             <img src={logoImage} alt="Trust Driving Solution" className={`w-auto max-w-48 object-contain transition-[height] duration-300 ${scrolled ? "h-11" : "h-14"}`} />
